@@ -3,7 +3,7 @@ import "./App.css";
 import axios from "axios";
 
 function App() {
-  const [objectIDs, setObjectIDs] = useState(null);
+
   const [datas, setDatas] = useState([]);
 
   const [searchText, setSearchText] = useState("");
@@ -12,7 +12,8 @@ function App() {
     const res = await axios.get(
       `https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&hasImages=true&medium=Paintings&q=${searchText}`
     );
-    setObjectIDs(res.data.objectIDs);
+    
+    const objectIDs = res.data.objectIDs
 
     let datasArr = [];
     for (const index in objectIDs) {
@@ -56,9 +57,7 @@ function App() {
           }}
         />
         <button
-          onClick={async () => {
-            await loadObjectIDs();
-          }}
+          onClick={loadObjectIDs}
         >
           Search
         </button>
